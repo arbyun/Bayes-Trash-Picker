@@ -1,9 +1,10 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class LusoBehaviour : MonoBehaviour
 {
-    private Cell[] CellArray;
+    private List<Cell> cellList;
     private int currentCellIndex;
     private Vector2 gridDimensions;
     
@@ -36,7 +37,7 @@ public class LusoBehaviour : MonoBehaviour
     {
         try
         {
-            CellArray = FindObjectOfType<GameManager>().CellArray;
+            cellList = FindObjectOfType<GameManager>().CellList;
         }
         catch (Exception e)
         {
@@ -64,7 +65,7 @@ public class LusoBehaviour : MonoBehaviour
 
     private void OnCurrentCellChange()
     {
-        transform.position = CellArray[CurrentCell].transform.position;
+        transform.position = cellList[CurrentCell].transform.position;
     }
     
     private void CalculateMoveIndexDeltas(int numOfCollumns)
@@ -86,7 +87,7 @@ public class LusoBehaviour : MonoBehaviour
     {
         if (moveCellIndexDelta == 0) return false;
             
-        Cell targetCell = CellArray[CurrentCell + moveCellIndexDelta];
+        Cell targetCell = cellList[CurrentCell + moveCellIndexDelta];
         
         return targetCell is not null && targetCell.CellState != Cell.State.Wall;
     }

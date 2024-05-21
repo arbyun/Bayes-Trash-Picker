@@ -19,11 +19,11 @@ public class GameManager : MonoBehaviour
 
     private int score;
     private int stepsLeft;
-    private Cell[] cellArray;
-    public Cell[] CellArray
+    private List<Cell> cellList;
+    public List<Cell> CellList
     {
-        get => cellArray;
-        private set => cellArray = value;
+        get => cellList;
+        private set => cellList = value;
     }
 
     private void Start()
@@ -32,7 +32,7 @@ public class GameManager : MonoBehaviour
         stepsLeft = numOfSteps;
         cellBG.GetComponent<RectTransform>().sizeDelta = new Vector2(numOfCollumns * 75, numOfRows * 75);
 
-        cellArray = new Cell[numOfRows * numOfSteps];
+        cellList = new List<Cell>(numOfRows * numOfSteps);
 
         CreateCells();
         InstantiatePlayer();
@@ -60,7 +60,7 @@ public class GameManager : MonoBehaviour
                 else if (Random.Range(0, 100) <= probabilityOfTrash)
                 {
                     newCell.CellState = Cell.State.HasTrash;
-                    cellArray.Append<>(newCell);
+                    cellList.Add(newCell);
                 }
 
                 newCell.UpdateCell();
