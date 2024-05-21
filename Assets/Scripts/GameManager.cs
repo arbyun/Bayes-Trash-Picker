@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -11,18 +12,27 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int numOfRows = 5;
     [SerializeField] private int numOfCollumns = 5;
     [SerializeField] private int numOfSteps = 20;
-
+    [SerializeField] private GameObject LusoPrefab;
+    
     [Range(0, 100)]
     [SerializeField] private int probabilityOfTrash = 40;
 
     private int score;
     private int stepsLeft;
+    private Cell[] cellArray;
+    public Cell[] CellArray
+    {
+        get => cellArray;
+        private set => cellArray = value;
+    }
 
     private void Start()
     {
         score = 0;
         stepsLeft = numOfSteps;
         cellBG.GetComponent<RectTransform>().sizeDelta = new Vector2(numOfCollumns * 75, numOfRows * 75);
+
+        cellArray = new Cell[numOfRows * numOfSteps];
 
         CreateCells();
         InstantiatePlayer();
@@ -50,6 +60,7 @@ public class GameManager : MonoBehaviour
                 else if (Random.Range(0, 100) <= probabilityOfTrash)
                 {
                     newCell.CellState = Cell.State.HasTrash;
+                    cellArray.Append<>(newCell);
                 }
 
                 newCell.UpdateCell();
@@ -71,6 +82,8 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        availableCells[Random.Range(0, availableCells.Count)].PlayerState(true);
+        int startingCell = Random.Range(0, availableCells.Count);
+        Instantiate(LusoPrefab).GetComponent<LusoBehaviour>();
+
     }
 }
