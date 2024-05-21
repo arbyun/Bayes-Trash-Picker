@@ -83,7 +83,10 @@ public class GameManager : MonoBehaviour
         }
 
         int startingCell = Random.Range(0, availableCells.Count);
-        Instantiate(LusoPrefab).GetComponent<LusoBehaviour>();
+        LusoBehaviour lusoBehaviour = Instantiate(LusoPrefab).GetComponent<LusoBehaviour>();
+        lusoBehaviour.UpdateCurrentCell(startingCell);
+        lusoBehaviour.UpdateGridDimensions(new Vector2(numOfRows, numOfCollumns));
+        
 
     }
 }
