@@ -57,10 +57,14 @@ public class GameManager : MonoBehaviour
                     newCell.CellState = Cell.State.Wall;
                 }
 
-                else if (Random.Range(0, 100) <= probabilityOfTrash)
-                {
-                    newCell.CellState = Cell.State.HasTrash;
+                else
+                { 
                     cellList.Add(newCell);
+                    
+                    if (Random.Range(0, 100) <= probabilityOfTrash)
+                    {
+                        newCell.CellState = Cell.State.HasTrash;
+                    }
                 }
 
                 newCell.UpdateCell();
@@ -86,7 +90,5 @@ public class GameManager : MonoBehaviour
         LusoBehaviour lusoBehaviour = Instantiate(LusoPrefab).GetComponent<LusoBehaviour>();
         lusoBehaviour.UpdateCurrentCell(startingCell);
         lusoBehaviour.UpdateGridDimensions(new Vector2(numOfRows, numOfCollumns));
-        
-
     }
 }

@@ -32,20 +32,14 @@ public class LusoBehaviour : MonoBehaviour
     private int downMoveCellIndexDelta;
     private int leftMoveCellIndexDelta;
     private int rightMoveCellIndexDelta;
-    
-    private void Start()
+
+    private void Awake()
     {
-        try
-        {
-            cellList = FindObjectOfType<GameManager>().CellList;
-        }
-        catch (Exception e)
-        {
-            Debug.Log(e);
+        cellList = FindObjectOfType<GameManager>().CellList;
+        if (cellList is null)
             Debug.Log(
                 "Couldn't find cellArray, either it wasn't created " +
-                      "or there is no object with a GameManager in the scene");
-        }
+                "or there is no object with a GameManager in the scene");
     }
 
     public void UpdateCurrentCell(int newCellIndex)
