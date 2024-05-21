@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,6 +6,7 @@ public class LusoBehaviour : MonoBehaviour
     private List<Cell> cellList;
     private int currentCellIndex;
     private Vector2 gridDimensions;
+    private RectTransform rectTransform;
     
     public int CurrentCell
     {
@@ -40,6 +40,8 @@ public class LusoBehaviour : MonoBehaviour
             Debug.Log(
                 "Couldn't find cellArray, either it wasn't created " +
                 "or there is no object with a GameManager in the scene");
+        
+        rectTransform = transform as RectTransform;
     }
 
     public void UpdateCurrentCell(int newCellIndex)
@@ -59,13 +61,14 @@ public class LusoBehaviour : MonoBehaviour
 
     private void OnCurrentCellChange()
     {
-        transform.position = cellList[CurrentCell].transform.position;
+        rectTransform.SetParent(cellList[CurrentCell].transform as RectTransform);
+        rectTransform.anchoredPosition = new Vector2(0, 0);
     }
     
-    private void CalculateMoveIndexDeltas(int numOfCollumns)
+    private void CalculateMoveIndexDeltas(int numOfColumns)
     {
-        upMoveCellIndexDelta = -numOfCollumns;
-        downMoveCellIndexDelta = numOfCollumns;
+        upMoveCellIndexDelta = -numOfColumns;
+        downMoveCellIndexDelta = numOfColumns;
         rightMoveCellIndexDelta = 1;
         leftMoveCellIndexDelta = -1;
     }

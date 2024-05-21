@@ -455,11 +455,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   uiManager: {fileID: 1880178367}
+  lusoPrefab: {fileID: 2445681122204426977, guid: ed1eefc1344610446a18f940f9d86adf, type: 3}
   cellPrefab: {fileID: 1452398800995478467, guid: 219d7219f581cfc4e88cf11a4e406493, type: 3}
   cellGrid: {fileID: 2123618923}
   cellBG: {fileID: 983434203}
   numOfRows: 5
-  numOfCollumns: 5
+  numOfColumns: 5
   numOfSteps: 20
   probabilityOfTrash: 40
 --- !u!4 &1186249139
