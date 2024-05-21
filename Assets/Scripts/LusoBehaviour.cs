@@ -20,10 +20,18 @@ public class LusoBehaviour : MonoBehaviour
     public Vector2 GridDimensions
     {
         get => gridDimensions;
-        private set => gridDimensions = value;
+        private set
+        {
+            gridDimensions = value;
+            CalculateMoveIndexDeltas((int)value.y);
+        }
     }
 
-
+    private int upMoveCellIndexDelta;
+    private int downMoveCellIndexDelta;
+    private int leftMoveCellIndexDelta;
+    private int rightMoveCellIndexDelta;
+    
     private void Start()
     {
         try
@@ -57,5 +65,13 @@ public class LusoBehaviour : MonoBehaviour
     private void OnCurrentCellChange()
     {
         transform.position = CellArray[CurrentCell].transform.position;
+    }
+    
+    private void CalculateMoveIndexDeltas(int numOfCollumns)
+    {
+        upMoveCellIndexDelta = -numOfCollumns;
+        downMoveCellIndexDelta = numOfCollumns;
+        rightMoveCellIndexDelta = 1;
+        leftMoveCellIndexDelta = -1;
     }
 }
