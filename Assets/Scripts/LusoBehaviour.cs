@@ -74,4 +74,40 @@ public class LusoBehaviour : MonoBehaviour
         rightMoveCellIndexDelta = 1;
         leftMoveCellIndexDelta = -1;
     }
+
+    private void TryMove(int moveCellIndexDelta)
+    {
+        if(!CheckValidMove(moveCellIndexDelta)) return;
+
+        UpdatePositionInGrid(CurrentCell + moveCellIndexDelta);
+    }
+    
+    private bool CheckValidMove(int moveCellIndexDelta)
+    {
+        if (moveCellIndexDelta == 0) return false;
+            
+        Cell targetCell = CellArray[CurrentCell + moveCellIndexDelta];
+        
+        return targetCell is not null && targetCell.CellState != Cell.State.Wall;
+    }
+
+    public void MoveUp()
+    {
+        TryMove(upMoveCellIndexDelta);
+    }
+
+    public void MoveDown()
+    {
+        TryMove(downMoveCellIndexDelta);
+    }
+
+    public void MoveLeft()
+    {
+        TryMove(leftMoveCellIndexDelta);
+    }
+
+    public void MoveRight()
+    {
+        TryMove(rightMoveCellIndexDelta);
+    }
 }
