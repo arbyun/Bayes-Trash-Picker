@@ -8,12 +8,14 @@ public class Cell : MonoBehaviour
 
     private State state;
     private Vector2 coordinates;
+    private Image cellImage;
     public State CellState { get => state; set{ state = value; } }
     public Vector2 Coordinates { get => coordinates; set{ coordinates = value; } }
 
-    private void Start()
+    private void Awake()
     {
         state = State.Empty;
+        cellImage = GetComponent<Image>();
         coordinates = new Vector2(0, 0);
     }
 
@@ -21,14 +23,13 @@ public class Cell : MonoBehaviour
     {
         if(state == State.Wall)
         {
-            gameObject.GetComponent<Image>().enabled = false;
+            cellImage.enabled = false;
             trashImage.SetActive(false);
         }
 
         else
         {
-            gameObject.GetComponent<Image>().enabled = true;
-            
+            cellImage.enabled = true;
             trashImage.SetActive(state == State.HasTrash);
         }
     }
