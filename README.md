@@ -39,8 +39,8 @@ Devido a uma dúvida sobre a utilização de IAs generativas (ChatGPT) no relat�
 ## Referências
 
 #### Artigos
+- Inácio, J., Fachada, N., Matos-Carvalho, J. P., & Fernandes, C. M.(2023). *Humans vs AI: An Exploratory Study With Online and Offline Learners* [Conference paper, Lusófona University].https://scholar.google.com/scholar?hl=en&as_sdt=0%2C5&as_ylo=2010&as_yhi=2024&q=%22Humans+vs+AI%3A+An+Exploratory+Study+With+Online+and+Offline+Learners+%22&btnG=
 - Paktitis, G.(2018).*Developing a Video Game Capable of Modeling the User* [Undergraduate Thesis, University of the Aegean]. Department of Information and Communication Systems Engineering.https://hellanicus.lib.aegean.gr/handle/11610/18887
-- Inácio, J., Fachada, N., Matos-Carvalho, J. P., & Fernandes, C. M.(2023). *Humans vs AI: An Exploratory Study With Online and Offline Learners* [Conference paper, Lusófona University]. 
 
 #### Assets Utilizados
 - Freepik.(a.d.).*Robot icon* [Hand Drawn Colored Image].Flaticon.https://www.flaticon.com/free-icon/robot_1395030
