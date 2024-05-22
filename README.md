@@ -5,12 +5,12 @@
 - 
 
 #### David Mendes, a22203255
-- Implementou as funcionalidades do personagem (Ser instanciado e as suas ações, como mover-se ou apanhar lixo)
+- Implementou as funcionalidades do personagem (Ser instanciado, as suas ações (mover-se e apanhar lixo), e ganhar ou perder pontuação)
 - Implementou a mecânica de só se verem as células adjacentes ao personagem
 - Fez os controlos para o jogo ser jogado por um utilizador
 
 #### João Correia, a22202506
-- Criou a base do projeto Unity (UI, geração de células com chance de ter lixo, parâmetros costumizáveis)
+- Criou a base do projeto Unity (elementos de UI, geração da grelha de células, e parâmetros costumizáveis)
 - Efetuou a pesquisa do artigo relacionado com o projeto
 - Escreveu o relatório 
 
@@ -33,11 +33,14 @@ Como referência para este projeto, foi pesquisada e estudada a tese "*Developin
 ## Conclusões
 [relacionar o que foi apresentado na introdução, nomeadamente o problema que se propuseram a resolver, com os resultados obtidos, e como o vosso projeto e a vossa abordagem se relacionam com o artigo selecionado e descrito na introdução.] (Escrever de forma a que uma pessoa que leia introdução + conclusão saiba os detalhes de objetivos, resultados obtidos, descobertas, e conhecimentos adquiridos)
 
+## Notas
+Devido a uma dúvida sobre a utilização de IAs generativas (ChatGPT) no relatório de um projeto prévio, notou-se a importância de referir o facto de que este documento foi escrito sem qualquer ajuda dessas ferramentas, devendo os créditos da escrita serem atribuídos por completo ao autor (exceto em caso de citações, em que os créditos pertencem aos autores dos artigos/documentos citados).
+
 ## Referências
 
 #### Artigos
-- [formato APA de referência ao artigo]
-- [talvez meter também aquele outro documento do stor que tinha lá este mesmo projeto pode ser útil]
+- Paktitis, G.(2018).*Developing a Video Game Capable of Modeling the User* [Undergraduate Thesis, University of the Aegean]. Department of Information and Communication Systems Engineering.https://hellanicus.lib.aegean.gr/handle/11610/18887
+- Inácio, J., Fachada, N., Matos-Carvalho, J. P., & Fernandes, C. M.(2023). *Humans vs AI: An Exploratory Study With Online and Offline Learners* [Conference paper, Lusófona University]. 
 
 #### Assets Utilizados
 - Freepik.(a.d.).*Robot icon* [Hand Drawn Colored Image].Flaticon.https://www.flaticon.com/free-icon/robot_1395030
