@@ -9,6 +9,7 @@ public class MainMenu : MonoBehaviour
     [SerializeField] private GameObject ControlTypeButtons;
     [SerializeField] private GameObject GameplayElements;
     [SerializeField] private GameObject GameOverElements;
+    [SerializeField] private GameObject WarningElement;
     
     private GameManager gm;
 
@@ -46,15 +47,23 @@ public class MainMenu : MonoBehaviour
         GameplayElements.SetActive(true);
         ControlTypeButtons.SetActive(false);
         MainMenuElements.SetActive(false);
-        gm.StartGame(true);
+        gm.IsPlayerHuman = true;
+        gm.StartGame();
     }
 
     public void StartGameAI()
     {
+        if (!gm.NaiveBayesClassifier.HasTrainingData())
+        {
+            WarningElement.SetActive(true);
+            return;
+        }
+        
         GameplayElements.SetActive(true);
         ControlTypeButtons.SetActive(false);
         MainMenuElements.SetActive(false);
-        gm.StartGame(false);
+        gm.IsPlayerHuman = false;
+        gm.StartGame();
     }
 
     public void ReturnToMainMenu()
