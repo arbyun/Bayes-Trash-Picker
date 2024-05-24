@@ -3,7 +3,9 @@
 ## Autores
 #### Daniela Dantas, a22202104
 - Implementou o agente IA
-- Criou um naïve Bayer classifier no agente IA
+- Implementou DataCollector, que reune TrainingData durante o 'turno' do jogador e envia para o algoritmo (*Naive Bayer Classifier*) após o fim deste
+- Implementou o algoritmo *Naive Bayer Classifier* para uso e treino do agente IA
+- Documentação do código
 
 #### David Mendes, a22203255
 - Implementou as funcionalidades do personagem (Ser instanciado, as suas ações (mover-se e apanhar lixo), e ganhar ou perder pontuação)
@@ -56,3 +58,4 @@ Devido a uma dúvida sobre a utilização de IAs generativas (ChatGPT) no relat�
 #### Assets Utilizados
 - Freepik.(a.d.).*Robot icon* [Hand Drawn Colored Image].Flaticon.https://www.flaticon.com/free-icon/robot_1395030
 - lemonade.(a.d.).*Soda Can* [Digital Drawn Colored Image].PngTree.https://pngtree.com/freepng/soda-can_8632591.html
+- Código dado em aula (especificamente Aula 10, Projeto Bayes Monsters), usado como template para o algoritmo *Naive Bayer Classifier* 
