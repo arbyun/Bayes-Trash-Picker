@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,8 +8,15 @@ public class LusoBehaviour : MonoBehaviour
     private int currentCellIndex;
     private Vector2 gridDimensions;
     private RectTransform rectTransform;
+    private List<Action> moveMethods;
+    private System.Random rnd;
+    private GameManager gm;
+    private int upMoveCellIndexDelta;
+    private int downMoveCellIndexDelta;
+    private int leftMoveCellIndexDelta;
+    private int rightMoveCellIndexDelta;
     
-    public int CurrentCell
+    public int CurrentCellIndex
     {
         get => currentCellIndex;
         private set
@@ -28,25 +36,26 @@ public class LusoBehaviour : MonoBehaviour
         }
     }
 
-    private int upMoveCellIndexDelta;
-    private int downMoveCellIndexDelta;
-    private int leftMoveCellIndexDelta;
-    private int rightMoveCellIndexDelta;
-
     private void Awake()
     {
         cellList = FindObjectOfType<GameManager>().CellList;
+        rectTransform = transform as RectTransform;
         if (cellList is null)
             Debug.Log(
                 "Couldn't find cellArray, either it wasn't created " +
                 "or there is no object with a GameManager in the scene");
-        
-        rectTransform = transform as RectTransform;
     }
 
-    public void UpdateCurrentCell(int newCellIndex)
+    private void Start()
     {
-        CurrentCell = newCellIndex;
+        gm = FindObjectOfType<GameManager>();
+        moveMethods = new List<Action>{MoveUp, MoveDown, MoveLeft, MoveRight};
+        rnd = new System.Random();
+    }
+
+    public void UpdateCurrentCell(Cell newCell)
+    {
+        CurrentCellIndex = cellList.IndexOf(newCell);
     }
 
     public void UpdateGridDimensions(Vector2 newGridDimensions)
@@ -56,12 +65,12 @@ public class LusoBehaviour : MonoBehaviour
     
     private void UpdatePositionInGrid(int newPositionCellIndex)
     {
-        CurrentCell = newPositionCellIndex;
+        CurrentCellIndex = newPositionCellIndex;
     }
 
     private void OnCurrentCellChange()
     {
-        rectTransform.SetParent(cellList[CurrentCell].transform as RectTransform);
+        rectTransform.SetParent(cellList[CurrentCellIndex].transform as RectTransform);
         rectTransform.anchoredPosition = new Vector2(0, 0);
     }
     
@@ -77,16 +86,18 @@ public class LusoBehaviour : MonoBehaviour
     {
         if(!CheckValidMove(moveCellIndexDelta)) return;
 
-        UpdatePositionInGrid(CurrentCell + moveCellIndexDelta);
+        UpdatePositionInGrid(CurrentCellIndex + moveCellIndexDelta);
     }
     
     private bool CheckValidMove(int moveCellIndexDelta)
     {
         if (moveCellIndexDelta == 0) return false;
             
-        Cell targetCell = cellList[CurrentCell + moveCellIndexDelta];
+        Cell targetCell = cellList[CurrentCellIndex + moveCellIndexDelta];
         
-        return targetCell is not null && targetCell.CellState != Cell.State.Wall;
+        if(targetCell.CellState == Cell.State.Wall) gm.BumpedTheWall();
+        
+        return targetCell.CellState != Cell.State.Wall;
     }
 
     public void MoveUp()
@@ -107,5 +118,10 @@ public class LusoBehaviour : MonoBehaviour
     public void MoveRight()
     {
         TryMove(rightMoveCellIndexDelta);
+    }
+
+    public void MoveRandom()
+    {
+        moveMethods[rnd.Next(0, moveMethods.Count)]();
     }
 }

@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class GameManager : MonoBehaviour
 {
@@ -11,6 +13,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int numOfRows = 5;
     [SerializeField] private int numOfColumns = 5;
     [SerializeField] private int numOfSteps = 20;
+    [SerializeField] private int itemPickSuccessScore;
+    [SerializeField] private int itemPickFailureScore;
+    [SerializeField] private int wallBumpScore;
     
     [Range(0, 100)]
     [SerializeField] private int probabilityOfTrash = 40;
@@ -18,23 +23,82 @@ public class GameManager : MonoBehaviour
     private int score;
     private int stepsLeft;
     private List<Cell> cellList;
+    private Cell currentCell;
+    private LusoBehaviour lb;
+    private ControlsManager cm;
+    private MainMenu mm;
+    private bool firstGame = true;
+    private List<Cell> availableCells;
+    
     public List<Cell> CellList
     {
         get => cellList;
         private set => cellList = value;
     }
 
+    public int Score
+    {
+        get => score;
+        private set
+        {
+            score = value;
+            UpdateUI();
+        }
+    }
+
+    public int StepsLeft
+    {
+        get => stepsLeft;
+        private set
+        {
+            stepsLeft = value;
+            if (stepsLeft == 0) GameOver();
+            UpdateUI();
+        }
+    }
+
     private void Start()
+    {
+        cm = FindObjectOfType<ControlsManager>();
+        mm = FindObjectOfType<MainMenu>();
+    }
+
+    private void GameStart()
     {
         score = 0;
         stepsLeft = numOfSteps;
+        
         cellBG.GetComponent<RectTransform>().sizeDelta = new Vector2(numOfColumns * 75, numOfRows * 75);
+        
+        if (firstGame)
+        {
+            cellList = new List<Cell>(numOfRows + 2 * numOfColumns + 2);
+            
+            CreateCells();
+            GetAvailableCells();
+            InstantiatePlayer();
+            
+            firstGame = false;
+        }
+        else
+        {
+            RandomizeEmptyCellStates();
+        }
+        
+        lb.UpdateCurrentCell(GetRandomPlayerPosition());
+        UpdateUI();
+    }
 
-        cellList = new List<Cell>(numOfRows * numOfSteps);
+    public void StartGame(bool isPlayerHuman)
+    {
+        GameStart();
+        cm.GameStart(isPlayerHuman);
+    }
 
-        CreateCells();
-        InstantiatePlayer();
-        uiManager.UpdateUI(score, stepsLeft);
+    private void GameOver()
+    {
+        cm.EndGame();
+        mm.ShowGameOverMenu();
     }
 
     private void CreateCells()
@@ -57,22 +121,44 @@ public class GameManager : MonoBehaviour
 
                 else
                 { 
-                    cellList.Add(newCell);
-                    
                     if (Random.Range(0, 100) <= probabilityOfTrash)
                     {
                         newCell.CellState = Cell.State.HasTrash;
                     }
                 }
-
+                
+                cellList.Add(newCell);
                 newCell.UpdateCell();
             }
         }
     }
 
+    private void RandomizeEmptyCellStates()
+    {
+        print(cellList.Count);
+        foreach (Cell cell in cellList)
+        {
+            if (cell.CellState == Cell.State.Wall) continue;
+            cell.CellState = Random.Range(0, 100) <= probabilityOfTrash 
+                ? Cell.State.HasTrash : Cell.State.Empty;
+            cell.UpdateCell();
+        }
+    }
+
     private void InstantiatePlayer()
     {
-        List<Cell> availableCells = new List<Cell>();
+        lb = Instantiate(lusoPrefab).GetComponent<LusoBehaviour>();
+        lb.UpdateGridDimensions(new Vector2(numOfRows + 2, numOfColumns + 2));
+    }
+
+    private Cell GetRandomPlayerPosition()
+    {
+        return availableCells[Random.Range(0, availableCells.Count)];
+    }
+
+    private void GetAvailableCells()
+    {
+        availableCells = new List<Cell>();
 
         for(int i = 0; i < cellGrid.childCount; i++)
         {
@@ -83,10 +169,37 @@ public class GameManager : MonoBehaviour
                 availableCells.Add(currentCell);
             }
         }
-        int startingCell = Random.Range(0, availableCells.Count);
-        
-        LusoBehaviour lusoBehaviour = Instantiate(lusoPrefab).GetComponent<LusoBehaviour>();
-        lusoBehaviour.UpdateCurrentCell(startingCell);
-        lusoBehaviour.UpdateGridDimensions(new Vector2(numOfRows, numOfColumns));
+    }
+
+    public void ActionPlayed() => StepsLeft -= 1;
+
+    public void TryPickingItem()
+    {
+        currentCell = cellList[lb.CurrentCellIndex];
+        if (currentCell.CellState == Cell.State.HasTrash)
+        {
+            currentCell.CellState = Cell.State.Empty;
+            currentCell.UpdateCell();
+            AddScore(itemPickSuccessScore);
+        }
+        else
+        {
+            AddScore(itemPickFailureScore);
+        }
+    }
+
+    public void BumpedTheWall()
+    {
+        AddScore(wallBumpScore);
+    }
+
+    private void AddScore(int scoreToAdd)
+    {
+        Score += scoreToAdd;
+    }
+
+    private void UpdateUI()
+    {
+        uiManager.UpdateUI(score, stepsLeft);
     }
 }
