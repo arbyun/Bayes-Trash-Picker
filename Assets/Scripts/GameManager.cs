@@ -28,6 +28,7 @@ public class GameManager : MonoBehaviour
     private LusoBehaviour _lb;
     private ControlsManager _cm;
     private MainMenu _mm;
+    private ScoreManager _sm;
     private bool _firstGame = true;
     private List<Cell> _availableCells;
     
@@ -89,6 +90,7 @@ public class GameManager : MonoBehaviour
     {
         _cm = FindObjectOfType<ControlsManager>();
         _mm = FindObjectOfType<MainMenu>();
+        _sm = FindObjectOfType<ScoreManager>();
         NaiveBayesClassifier = new NaiveBayesClassifier();
     }
 
@@ -128,6 +130,7 @@ public class GameManager : MonoBehaviour
     public void StartGame()
     {
         GameStart();
+        _sm.GameStart();
         _cm.GameStart(IsPlayerHuman);
     }
 
@@ -139,7 +142,10 @@ public class GameManager : MonoBehaviour
     private void GameOver()
     {
         _cm.EndGame();
+        _sm.TryRegisterNewScore(_score);
         if (IsPlayerHuman) TrainAI();
+        _mm.showLeaderboardAfterGame = _sm.LeaderboardUpdated;
+        _sm.UpdateFinalScoreText(_score);
         _mm.ShowGameOverMenu();
     }
 

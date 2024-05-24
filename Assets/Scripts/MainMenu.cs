@@ -12,6 +12,8 @@ public class MainMenu : MonoBehaviour
     [SerializeField] private GameObject gameplayElements;
     [SerializeField] private GameObject gameOverElements;
     [SerializeField] private GameObject warningElement;
+
+    public bool showLeaderboardAfterGame;
     
     private GameManager _gm;
 
@@ -118,5 +120,10 @@ public class MainMenu : MonoBehaviour
     public void HideGameOverMenu()
     {
         gameOverElements.SetActive(false);
+        ReturnToMainMenu();
+        if (showLeaderboardAfterGame)
+        {
+            ShowLeaderboard();
+        }
     }
 }
