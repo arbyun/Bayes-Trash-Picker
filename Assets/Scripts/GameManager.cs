@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -27,6 +26,7 @@ public class GameManager : MonoBehaviour
     private LusoBehaviour lb;
     private ControlsManager cm;
     private MainMenu mm;
+    private ScoreManager sm;
     private bool firstGame = true;
     private List<Cell> availableCells;
     
@@ -61,6 +61,7 @@ public class GameManager : MonoBehaviour
     {
         cm = FindObjectOfType<ControlsManager>();
         mm = FindObjectOfType<MainMenu>();
+        sm = FindObjectOfType<ScoreManager>();
     }
 
     private void GameStart()
@@ -93,11 +94,15 @@ public class GameManager : MonoBehaviour
     {
         GameStart();
         cm.GameStart(isPlayerHuman);
+        sm.GameStart();
     }
 
     private void GameOver()
     {
         cm.EndGame();
+        sm.TryRegisterNewScore(score);
+        mm.showLeaderboardAfterGame = sm.LeaderboardUpdated;
+        sm.UpdateFinalScoreText(score);
         mm.ShowGameOverMenu();
     }
 
@@ -135,7 +140,6 @@ public class GameManager : MonoBehaviour
 
     private void RandomizeEmptyCellStates()
     {
-        print(cellList.Count);
         foreach (Cell cell in cellList)
         {
             if (cell.CellState == Cell.State.Wall) continue;
