@@ -1,10 +1,12 @@
-﻿public struct TrainingData
+﻿using System;
+
+public struct TrainingData
 {
     public int CellIndex { get; set; }
     public Cell.State[] NeighboringCells { get; set; }
-    public string Action { get; set; }
+    public Action Action { get; set; }
 
-    public TrainingData(int cellIndex, Cell.State[] neighboringCells, string action)
+    public TrainingData(int cellIndex, Cell.State[] neighboringCells, Action action)
     {
         CellIndex = cellIndex;
         NeighboringCells = neighboringCells;
