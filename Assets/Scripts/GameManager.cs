@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using LusoAI;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -30,11 +31,15 @@ public class GameManager : MonoBehaviour
     private bool firstGame = true;
     private List<Cell> availableCells;
     
+    public NaiveBayesClassifier NaiveBayesClassifier { get; private set; }
+
     public List<Cell> CellList
     {
         get => cellList;
         private set => cellList = value;
     }
+    
+    public bool IsPlayerHuman { get; set; }
 
     public int Score
     {
@@ -61,6 +66,7 @@ public class GameManager : MonoBehaviour
     {
         cm = FindObjectOfType<ControlsManager>();
         mm = FindObjectOfType<MainMenu>();
+        NaiveBayesClassifier = new NaiveBayesClassifier();
     }
 
     private void GameStart()
@@ -89,16 +95,24 @@ public class GameManager : MonoBehaviour
         UpdateUI();
     }
 
-    public void StartGame(bool isPlayerHuman)
+    public void StartGame()
     {
         GameStart();
-        cm.GameStart(isPlayerHuman);
+        cm.GameStart(IsPlayerHuman);
     }
 
     private void GameOver()
     {
         cm.EndGame();
+        if (IsPlayerHuman) TrainAI();
         mm.ShowGameOverMenu();
+    }
+
+    private void TrainAI()
+    {
+        var dataCollector = FindObjectOfType<DataCollector>();
+        List<TrainingData> trainingData = dataCollector.GetTrainingData();
+        NaiveBayesClassifier.Train(trainingData);
     }
 
     private void CreateCells()
