@@ -2,21 +2,21 @@
 
 ## Autores
 #### Daniela Dantas, a22202104
-- Implementou o agente IA
-- Implementou o algoritmo *Naïve Bayes Classifier* no agente IA
-- Implementou a classe DataCollector, que envia TrainingData do jogador e envia para o *Naïve Bayer Classifier*
-- Documentou o código
+- Implementou o agente IA;
+- Implementou o algoritmo *Naïve Bayes Classifier* no agente IA;
+- Implementou a classe DataCollector, que envia TrainingData do jogador para o *Naïve Bayer Classifier*;
+- Documentou o código.
 
 #### David Mendes, a22203255
-- Implementou as funcionalidades do personagem (Ser instanciado, as suas ações (mover-se e apanhar lixo), e ganhar ou perder pontuação)
-- Implementou a mecânica de só se verem as células adjacentes ao personagem
-- Fez os controlos para o jogo ser jogado por um utilizador
-- Fez o menu inicial do jogo e a Leaderboard
+- Implementou as funcionalidades do personagem (Ser instanciado, as suas ações (mover-se e apanhar lixo), e ganhar ou perder pontuação);
+- Implementou a mecânica de só se verem as células adjacentes ao personagem (Fog of War);
+- Fez os controlos para o jogo ser jogado por um utilizador;
+- Fez o menu inicial do jogo e a Leaderboard.
 
 #### João Correia, a22202506
-- Criou a base do projeto Unity (elementos de UI, geração da grelha de células, e parâmetros costumizáveis)
-- Efetuou a pesquisa do artigo relacionado com o projeto
-- Escreveu o relatório 
+- Criou a base do projeto Unity (elementos de UI, geração da grelha de células, e parâmetros costumizáveis);
+- Efetuou a pesquisa do artigo relacionado com o projeto;
+- Escreveu o relatório e criou os diagramas apresentados nele.
 
 ## Introdução
 Este projeto teve como objetivo a implementação do jogo *Lusófona’s Trash Picker* em Unity, bem como a utilização de um *Naïve Bayes classifier* para que um agente de IA possa jogar sozinho após aprender com as ações de jogadores humanos. Este jogo 2D consiste em controlar um personagem, Luso, que começa numa posição aleatória numa grelha de células com tamanho 5x5 por omissão. As células têm 40% de chance por omissão para terem lixo nelas, e o objetivo do jogo é mover o Luso para essas células e apanhar o lixo para ganhar pontuação. O jogador apenas consegue ver a célula em que se encontra e as 4 em seu redor, e também tem um limite de ações que pode realizar antes de o jogo acabar (20 por omissão), podendo mover-se para uma das 4 células em seu redor (quer seja numa direção aleatória ou escolhida pelo utilizador), ficar no mesmo sítio, ou tentar apanhar lixo na célula em que se encontra. O jogador recebe ou perde pontuação com cada ação, ganhando 10 pontos ao apanhar lixo de uma célula com sucesso e perdendo 1 ponto ao tentar apanhar lixo numa célula vazia ou 5 pontos ao tentar andar contra os limites da grelha, portanto o jogador e a IA devem tentar obter a maior pontuação final possível, podendo esta ser negativa caso percam demasiados pontos.
