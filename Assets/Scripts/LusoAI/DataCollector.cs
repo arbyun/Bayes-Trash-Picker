@@ -1,11 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class DataCollector : MonoBehaviour
 {
     private readonly List<TrainingData> _trainingDataList = new();
 
-    public void RecordAction(int currentCellIndex, Cell.State[] neighboringCells, string action)
+    public void RecordAction(int currentCellIndex, Cell.State[] neighboringCells, Action action)
     {
         _trainingDataList.Add(new TrainingData(currentCellIndex, neighboringCells, action));
     }
