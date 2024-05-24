@@ -98,6 +98,7 @@ public class LusoBehaviour : MonoBehaviour
     {
         _rectTransform.SetParent(_cellList[CurrentCellIndex].transform as RectTransform);
         _rectTransform.anchoredPosition = new Vector2(0, 0);
+        UpdateCellFog();
     }
     
     /// <summary>
@@ -141,6 +142,24 @@ public class LusoBehaviour : MonoBehaviour
         if(targetCell.CellState == Cell.State.Wall) _gm.BumpedTheWall();
         
         return targetCell.CellState != Cell.State.Wall;
+    }
+
+    private void UpdateCellFog()
+    {
+        foreach (Cell cell in _cellList)
+        {
+            if(cell.CellState == Cell.State.Wall) continue;
+            if (cell == _cellList[CurrentCellIndex] ||
+                cell == _cellList[CurrentCellIndex + _upMoveCellIndexDelta] ||
+                cell == _cellList[CurrentCellIndex + _downMoveCellIndexDelta] ||
+                cell == _cellList[CurrentCellIndex + _leftMoveCellIndexDelta] ||
+                cell == _cellList[CurrentCellIndex + _rightMoveCellIndexDelta])
+            {
+                cell.ShowFog(false);
+                continue;   
+            }
+            cell.ShowFog(true);
+        }
     }
 
     /// <summary>

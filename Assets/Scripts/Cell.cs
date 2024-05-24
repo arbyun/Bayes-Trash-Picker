@@ -18,6 +18,7 @@ public class Cell : MonoBehaviour
     }
     
     [SerializeField] private GameObject trashImage;
+    [SerializeField] private GameObject fogImage;
 
     private State _state;
     private Vector2 _coordinates;
@@ -67,5 +68,10 @@ public class Cell : MonoBehaviour
             _cellImage.enabled = true;
             trashImage.SetActive(_state == State.HasTrash);
         }
+    }
+
+    public void ShowFog(bool state)
+    {
+        fogImage.SetActive(state);   
     }
 }

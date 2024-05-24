@@ -211,6 +211,7 @@ public class GameManager : MonoBehaviour
             cell.CellState = Random.Range(0, 100) <= probabilityOfTrash 
                 ? Cell.State.HasTrash : Cell.State.Empty;
             cell.UpdateCell();
+            cell.ShowFog(true);
         }
     }
 
