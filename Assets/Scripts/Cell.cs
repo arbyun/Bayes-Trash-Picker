@@ -70,6 +70,11 @@ public class Cell : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Updates the cell's image to either have a fog blocking the player from
+    /// viewing it, or not.
+    /// </summary>
+    /// <param name="state"></param>
     public void ShowFog(bool state)
     {
         fogImage.SetActive(state);   
