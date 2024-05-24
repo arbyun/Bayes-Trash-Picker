@@ -205,7 +205,6 @@ public class GameManager : MonoBehaviour
     /// </summary>
     private void RandomizeEmptyCellStates()
     {
-        print(_cellList.Count);
         foreach (Cell cell in _cellList)
         {
             if (cell.CellState == Cell.State.Wall) continue;
