@@ -7,7 +7,6 @@ using Random = UnityEngine.Random;
 /// </summary>
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] private UIManager uiManager;
     [SerializeField] private GameObject lusoPrefab;
     [SerializeField] private GameObject cellPrefab;
     [SerializeField] private Transform cellGrid;
@@ -27,7 +26,7 @@ public class GameManager : MonoBehaviour
     private Cell _currentCell;
     private LusoBehaviour _lb;
     private ControlsManager _cm;
-    private MainMenu _mm;
+    private UIManager _ui;
     private ScoreManager _sm;
     private bool _firstGame = true;
     private List<Cell> _availableCells;
@@ -89,7 +88,7 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         _cm = FindObjectOfType<ControlsManager>();
-        _mm = FindObjectOfType<MainMenu>();
+        _ui = FindObjectOfType<UIManager>();
         _sm = FindObjectOfType<ScoreManager>();
         NaiveBayesClassifier = new NaiveBayesClassifier();
     }
@@ -144,9 +143,9 @@ public class GameManager : MonoBehaviour
         _cm.EndGame();
         _sm.TryRegisterNewScore(_score);
         if (IsPlayerHuman) TrainAI();
-        _mm.showLeaderboardAfterGame = _sm.LeaderboardUpdated;
+        _ui.showLeaderboardAfterGame = _sm.LeaderboardUpdated;
         _sm.UpdateFinalScoreText(_score);
-        _mm.ShowGameOverMenu();
+        _ui.ShowGameOverMenu();
     }
 
     /// <summary>
@@ -300,6 +299,6 @@ public class GameManager : MonoBehaviour
     /// </summary>    
     private void UpdateUI()
     {
-        uiManager.UpdateUI(_score, _stepsLeft);
+        _ui.UpdateUI(_score, _stepsLeft);
     }
 }
