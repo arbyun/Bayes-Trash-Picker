@@ -7,9 +7,7 @@ using UnityEngine;
 public class UIManager : MonoBehaviour
 {
     [SerializeField] private GameObject mainMenuElements;
-    [SerializeField] private GameObject mainMenuButtons;
     [SerializeField] private GameObject leaderboardElements;
-    [SerializeField] private GameObject controlTypeButtons;
     [SerializeField] private GameObject gameplayElements;
     [SerializeField] private GameObject gameOverElements;
     [SerializeField] private GameObject warningElement;
@@ -27,42 +25,21 @@ public class UIManager : MonoBehaviour
 
     /// <summary>
     /// Called when the player clicks on the Leaderboard button in the main menu.    
-    /// It deactivates all of the buttons in MainMenuButtons and activates all of the
-    /// elements in Leaderboard Elements.
+    /// Activates all of the elements in Leaderboard Elements.
     /// </summary>
     public void ShowLeaderboard()
     {
         leaderboardElements.SetActive(true);
-        mainMenuButtons.SetActive(false);
     }
 
     /// <summary>
-    /// Hides the leaderboard elements and shows the main menu buttons.
+    /// Hides the leaderboard elements.
     /// </summary> 
     public void HideLeaderboard()
     {
         leaderboardElements.SetActive(false);
-        mainMenuButtons.SetActive(true);
     }
-
-    /// <summary>
-    /// Called when the player clicks on the 'Controls' button in the main menu.    
-    /// It deactivates all of the buttons in MainMenuButtons and activates all of those in ControlTypeButtons.
-    /// </summary>
-    public void ShowControlTypes()
-    {
-        controlTypeButtons.SetActive(true);
-        mainMenuButtons.SetActive(false);
-    }
-
-    /// <summary>
-    /// Hides the ControlTypeButtons game object and shows the MainMenuButtons game object.
-    /// </summary>    
-    public void HideControlTypes()
-    {
-        controlTypeButtons.SetActive(false);
-        mainMenuButtons.SetActive(true);
-    }
+    
 
     /// <summary>
     /// Called when the player clicks on the 'Human Play' button in the Control Type menu.    
@@ -71,7 +48,6 @@ public class UIManager : MonoBehaviour
     public void StartGameHuman()
     {
         gameplayElements.SetActive(true);
-        controlTypeButtons.SetActive(false);
         mainMenuElements.SetActive(false);
         _gm.IsPlayerHuman = true;
         _gm.StartGame();
@@ -91,7 +67,6 @@ public class UIManager : MonoBehaviour
         }
         
         gameplayElements.SetActive(true);
-        controlTypeButtons.SetActive(false);
         mainMenuElements.SetActive(false);
         _gm.IsPlayerHuman = false;
         _gm.StartGame();
@@ -105,7 +80,6 @@ public class UIManager : MonoBehaviour
     {
         gameplayElements.SetActive(false);
         mainMenuElements.SetActive(true);
-        mainMenuButtons.SetActive(true);
     }
 
     /// <summary>
