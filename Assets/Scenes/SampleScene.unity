@@ -351,7 +351,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: There's not enough data for the AI to play! Please try playing a round first.
+  m_text: There's not enough data for the AI to play! Please try playing a round
+    first.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -2203,13 +2204,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e85f8f48803c60c4982d7f035d67f935, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MoveUpKey: 119
-  MoveDownKey: 115
-  MoveLeftKey: 97
-  MoveRightKey: 100
-  MoveRandomKey: 114
-  DontMoveKey: 32
-  PickItemKey: 101
+  moveUpKey: 119
+  moveDownKey: 115
+  moveLeftKey: 97
+  moveRightKey: 100
+  moveRandomKey: 114
+  dontMoveKey: 32
+  pickItemKey: 101
 --- !u!4 &864010773
 Transform:
   m_ObjectHideFlags: 0
@@ -2722,10 +2723,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   uiManager: {fileID: 1880178367}
-  lusoPrefab: {fileID: 2445681122204426977, guid: ed1eefc1344610446a18f940f9d86adf,
-    type: 3}
-  cellPrefab: {fileID: 1452398800995478467, guid: 219d7219f581cfc4e88cf11a4e406493,
-    type: 3}
+  lusoPrefab: {fileID: 2445681122204426977, guid: ed1eefc1344610446a18f940f9d86adf, type: 3}
+  cellPrefab: {fileID: 1452398800995478467, guid: 219d7219f581cfc4e88cf11a4e406493, type: 3}
   cellGrid: {fileID: 2123618923}
   cellBG: {fileID: 983434203}
   numOfRows: 5
@@ -4062,13 +4061,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ecb69f5cdc736944d80feab2b4e25d8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MainMenuElements: {fileID: 1106906649}
-  MainMenuButtons: {fileID: 257104858}
-  LeaderboardElements: {fileID: 815399976}
-  ControlTypeButtons: {fileID: 475104053}
-  GameplayElements: {fileID: 1875135146}
-  GameOverElements: {fileID: 508700394}
-  WarningElement: {fileID: 530493856}
+  mainMenuElements: {fileID: 1106906649}
+  mainMenuButtons: {fileID: 257104858}
+  leaderboardElements: {fileID: 815399976}
+  controlTypeButtons: {fileID: 475104053}
+  gameplayElements: {fileID: 1875135146}
+  gameOverElements: {fileID: 508700394}
+  warningElement: {fileID: 530493856}
   showLeaderboardAfterGame: 0
 --- !u!1 &1985290880
 GameObject:
