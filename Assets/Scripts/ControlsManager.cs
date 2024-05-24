@@ -1,5 +1,6 @@
 using UnityEngine;
 
+[RequireComponent(typeof(DataCollector))]
 public class ControlsManager : MonoBehaviour
 {
     [SerializeField] private KeyCode MoveUpKey;
@@ -11,6 +12,7 @@ public class ControlsManager : MonoBehaviour
     [SerializeField] private KeyCode PickItemKey;
     
     public enum State {None, Human, AI}
+    
     public State ControlMode 
     { 
         get => controlMode;
@@ -24,12 +26,14 @@ public class ControlsManager : MonoBehaviour
     private State controlMode;
     private LusoBehaviour lb;
     private GameManager gm;
+    private DataCollector _dataCollector;
     private bool hasActionPlayed;
     
     
     private void Start()
     {
         gm = FindObjectOfType<GameManager>();
+        _dataCollector = FindObjectOfType<DataCollector>();
     }
 
     public void GameStart(bool isPlayerHuman)
