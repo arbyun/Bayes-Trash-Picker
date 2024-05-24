@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 [RequireComponent(typeof(DataCollector))]
@@ -25,6 +26,7 @@ public class ControlsManager : MonoBehaviour
     
     private State controlMode;
     private LusoBehaviour lb;
+    private LusoAIBehaviour lbAI;
     private GameManager gm;
     private DataCollector _dataCollector;
     private bool hasActionPlayed;
@@ -39,8 +41,13 @@ public class ControlsManager : MonoBehaviour
     public void GameStart(bool isPlayerHuman)
     {
         lb = FindObjectOfType<LusoBehaviour>();
+        lbAI = FindObjectOfType<LusoAIBehaviour>();
 
-        if (isPlayerHuman) ControlMode = State.Human;
+        ControlMode = isPlayerHuman switch
+        {
+            true => State.Human,
+            false => State.AI
+        };
     }
 
     public void EndGame()
@@ -51,39 +58,46 @@ public class ControlsManager : MonoBehaviour
     private void Update()
     { 
         if (controlMode == State.Human) PlayerInput();
+        else if (controlMode == State.AI) lbAI.Play();
     }
 
     private void PlayerInput()
     {
         hasActionPlayed = false;
+        var neighboringCells = lb.GetNeighboringCells();
         
         if (Input.GetKeyDown(MoveUpKey))
         {
             lb.MoveUp();
+            RecordAction(neighboringCells, lb.MoveUp);
             hasActionPlayed = true;
         }
 
         else if (Input.GetKeyDown(MoveDownKey))
         {
             lb.MoveDown();
+            RecordAction(neighboringCells, lb.MoveDown);
             hasActionPlayed = true;
         }
 
         else if (Input.GetKeyDown(MoveRightKey))
         {
             lb.MoveRight();
+            RecordAction(neighboringCells, lb.MoveRight);
             hasActionPlayed = true;
         }
 
         else if (Input.GetKeyDown(MoveLeftKey))
         {
             lb.MoveLeft();
+            RecordAction(neighboringCells, lb.MoveLeft);
             hasActionPlayed = true;
         }
 
         else if (Input.GetKeyDown(MoveRandomKey))
         {
             lb.MoveRandom();
+            RecordAction(neighboringCells, lb.MoveRandom);
             hasActionPlayed = true;
         }
 
@@ -95,6 +109,7 @@ public class ControlsManager : MonoBehaviour
         else if (Input.GetKeyDown(PickItemKey))
         {
             gm.TryPickingItem();
+            RecordAction(neighboringCells, gm.TryPickingItem);
             hasActionPlayed = true;
         }
         
@@ -103,7 +118,6 @@ public class ControlsManager : MonoBehaviour
     
     private void OnControlModeChange()
     {
-
         switch (ControlMode)
         {
             case State.None:
@@ -138,5 +152,11 @@ public class ControlsManager : MonoBehaviour
     {
         LockCursor();
         ShowCursor(false);
+    }
+    
+    private void RecordAction(Cell.State[] neighboringCells, Action action)
+    {
+        var dataCollector = FindObjectOfType<DataCollector>();
+        dataCollector.RecordAction(lb.CurrentCellIndex, neighboringCells, action);
     }
 }
