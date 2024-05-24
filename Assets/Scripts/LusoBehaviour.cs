@@ -124,4 +124,15 @@ public class LusoBehaviour : MonoBehaviour
     {
         moveMethods[rnd.Next(0, moveMethods.Count)]();
     }
+    
+    public Cell.State[] GetNeighboringCells()
+    {
+        Cell.State[] neighboringCells = new Cell.State[5];
+        neighboringCells[0] = cellList[CurrentCellIndex].CellState;
+        neighboringCells[1] = cellList[CurrentCellIndex + upMoveCellIndexDelta].CellState;
+        neighboringCells[2] = cellList[CurrentCellIndex + downMoveCellIndexDelta].CellState;
+        neighboringCells[3] = cellList[CurrentCellIndex + leftMoveCellIndexDelta].CellState;
+        neighboringCells[4] = cellList[CurrentCellIndex + rightMoveCellIndexDelta].CellState;
+        return neighboringCells;
+    }
 }
