@@ -1,14 +1,15 @@
 ﻿using System;
 using System.Collections;
-using LusoAI;
 using UnityEngine;
 
+/// <summary>
+/// Defines the logic for when Luso is being controlled by the AI.
+/// </summary>
 public class LusoAIBehaviour : MonoBehaviour
 {
     private GameManager _gm;
     private NaiveBayesClassifier _classifier;
     private LusoBehaviour _luso;
-
     private Coroutine _play;
 
     private void Start()
@@ -18,6 +19,10 @@ public class LusoAIBehaviour : MonoBehaviour
         _classifier = _gm.NaiveBayesClassifier;
     }
 
+    /// <summary>
+    /// Simulates a play action on Luso by the AI.    
+    /// It uses the <see cref="NaiveBayesClassifier"/> to predict what action it should take
+    /// based on its neighboring cells' state.</summary>
     private IEnumerator AIPlay()
     {
         var neighboringCells = _luso.GetNeighboringCells();
@@ -29,6 +34,9 @@ public class LusoAIBehaviour : MonoBehaviour
         _play = null;
     }
 
+    /// <summary>
+    /// Runs the AI's turn.
+    /// </summary>
     public void Play()
     {
         _play ??= StartCoroutine(AIPlay());

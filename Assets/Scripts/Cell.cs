@@ -1,36 +1,71 @@
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// Defines a cell and it's behaviour; whether it's empty, a wall, or has trash in it.
+/// </summary>
 public class Cell : MonoBehaviour
 {
-    public enum State {Empty, HasTrash, Wall}
+    /// <summary>
+    /// The state that represents a cell's behaviour.
+    /// </summary>
+    /// <seealso cref="Cell"/>
+    public enum State
+    {
+        Empty, 
+        HasTrash, 
+        Wall
+    }
+    
     [SerializeField] private GameObject trashImage;
 
-    private State state;
-    private Vector2 coordinates;
-    private Image cellImage;
-    public State CellState { get => state; set{ state = value; } }
-    public Vector2 Coordinates { get => coordinates; set{ coordinates = value; } }
+    private State _state;
+    private Vector2 _coordinates;
+    private Image _cellImage;
+
+    /// <summary>
+    /// The current state of the cell.
+    /// </summary>
+    public State CellState
+    {
+        get => _state; 
+        set => _state = value;
+    }
+
+    /// <summary>
+    /// Represents a cell's coordinates.
+    /// </summary>
+    public Vector2 Coordinates
+    {
+        get => _coordinates; 
+        set => _coordinates = value;
+    }
 
     private void Awake()
     {
-        state = State.Empty;
-        cellImage = GetComponent<Image>();
-        coordinates = new Vector2(0, 0);
+        _state = State.Empty;
+        _cellImage = GetComponent<Image>();
+        _coordinates = new Vector2(0, 0);
     }
 
+    /// <summary>
+    /// Updates the cell's image to reflect its current state.    
+    /// If the cell is a wall, it will be invisible.
+    /// Otherwise, if there is trash in the cell,an image of trash will
+    /// appear on top of it.
+    /// </summary>
     public void UpdateCell()
     {
-        if(state == State.Wall)
+        if(_state == State.Wall)
         {
-            cellImage.enabled = false;
+            _cellImage.enabled = false;
             trashImage.SetActive(false);
         }
 
         else
         {
-            cellImage.enabled = true;
-            trashImage.SetActive(state == State.HasTrash);
+            _cellImage.enabled = true;
+            trashImage.SetActive(_state == State.HasTrash);
         }
     }
 }
